@@ -4,7 +4,7 @@ title: "100 Brands Looking for UGC Creators in 2026: The Ultimate List to Land
 category: Guides
 date: 2026-07-21T10:30:00.000+03:00
 readTime: 8 min read
-coverImage: https://unsplash.com/photos/person-holding-silver-iphone-6-5UGtj7v85zs
+coverImage: /images/uploads/youversion-5ugtj7v85zs-unsplash.jpg
 tags:
   - UGC Brand List
   - Brands Hiring Creators
