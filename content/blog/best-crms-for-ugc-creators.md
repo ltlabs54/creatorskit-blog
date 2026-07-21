@@ -86,4 +86,4 @@ When a brand responds with interest, avoid the temptation to say yes to the firs
 
 Landing your first brand partnership is an incredible milestone, but success belongs to creators who approach outreach as a professional business entity. 
 
-Ready to replace static documents with a high-end digital presentation?[ **\[Get started with CreatorsKit for free]** ](https://www.creatorskit.app/login)and launch a live, interactive media kit that turns cold brand pitches into paid partnerships in under 60 seconds
+Ready to replace static documents with a high-end digital presentation? **\[Get started with CreatorsKit for free]**  [https://www.creatorskit.app/#pricing ](https://www.creatorskit.app/#pricing)and launch a live, interactive media kit that turns cold brand pitches into paid partnerships in under 60 seconds
