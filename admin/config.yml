@@ -1,0 +1,56 @@
+# Decap CMS configuration
+#
+# BACKEND: Decap commits content to a git repo. On Vercel the supported
+# path is the GitHub backend + OAuth. Replace OWNER/REPO below with your
+# GitHub repository once the project is pushed to GitHub, and connect an
+# OAuth provider (see the notes shared after deploy).
+backend:
+  name: github
+  repo: ltlabs54/creatorskit-blog
+  branch: main
+  # Custom OAuth provider (Vercel serverless functions in /api).
+  # Decap opens {base_url}/{auth_endpoint} to start the GitHub login.
+  base_url: https://creatorskit-blog-v2.vercel.app
+  auth_endpoint: /api/auth
+
+# Lets writers test the panel locally against the filesystem:
+#   1) run `npx decap-server` in the project root
+#   2) open http://localhost:8080/admin/  (served by any static server)
+local_backend: true
+
+# Where uploaded images are stored / referenced from
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Show a live preview link inside the editor
+site_url: https://creatorskit-blog-v2.vercel.app
+display_url: https://creatorskit-blog-v2.vercel.app
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    description: "Articles that appear on the homepage grid."
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "yaml-frontmatter"
+    summary: "{{title}}  ·  {{category}}  ·  {{date}}"
+    sortable_fields: ["date", "title", "category"]
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - name: "category"
+        label: "Category"
+        widget: "select"
+        options: ["Guides", "Monetization", "AI", "Growth"]
+        default: "Guides"
+      - { name: "date", label: "Publish Date", widget: "datetime" }
+      - { name: "readTime", label: "Read Time", widget: "string", hint: "e.g. 8 min read", default: "5 min read" }
+      - { name: "coverImage", label: "Cover Image", widget: "image", required: false }
+      - name: "tags"
+        label: "Tags"
+        widget: "list"
+        required: false
+        hint: "Shown as pills on the card. Press enter after each tag."
+      - { name: "body", label: "Body", widget: "markdown", hint: "Rich text, links, and inline images." }

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading… — CreatorsKit</title>
+  <meta name="description" content="A CreatorsKit guide." />
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { navy: '#2b3a8a' }, fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] } } },
+    };
+  </script>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && systemDark)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; overflow-x: clip; }
+    .headline { letter-spacing: -0.02em; }
+    body, header, section, article, footer, input, a { transition: background-color .3s ease, border-color .3s ease, color .3s ease; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased">
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-40 border-b border-slate-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <div class="flex h-16 items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-navy text-white font-black text-sm">CK</span>
+          <span class="text-lg font-extrabold tracking-tight">creatorskit<span class="text-navy dark:text-indigo-400">.app</span></span>
+        </a>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="index.html" class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition">
+            <span aria-hidden="true">←</span>
+            <span class="hidden sm:inline">Back to Guides</span>
+            <span class="sm:hidden">Back</span>
+          </a>
+          <button id="theme-toggle" type="button" aria-label="Toggle light and dark mode"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition">
+            <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="hidden h-5 w-5 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="post-root" class="mx-auto max-w-3xl px-5 sm:px-8 py-16 text-center text-slate-500 dark:text-zinc-400">
+    Loading article…
+  </main>
+
+  <footer class="border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-navy text-white font-black text-xs">CK</span>
+        <span class="font-extrabold tracking-tight">creatorskit<span class="text-navy dark:text-indigo-400">.app</span></span>
+      </div>
+      <p class="text-sm text-slate-500 dark:text-zinc-400">© 2026 CreatorsKit.</p>
+      <a href="index.html" class="text-sm font-bold text-navy dark:text-indigo-400 hover:underline">← Back to Guides</a>
+    </div>
+  </footer>
+
+  <script>
+    // theme toggle
+    (function () {
+      var t = document.getElementById('theme-toggle');
+      if (t) t.addEventListener('click', function () {
+        var d = document.documentElement.classList.toggle('dark');
+        try { localStorage.setItem('theme', d ? 'dark' : 'light'); } catch (e) {}
+      });
+    })();
+
+    function parseFrontmatter(raw) {
+      var m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+      if (!m) return { data: {}, body: raw };
+      var data = {};
+      try { data = jsyaml.load(m[1]) || {}; } catch (e) {}
+      return { data: data, body: m[2] };
+    }
+    function fmtDate(d) {
+      try { return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
+      catch (e) { return d || ''; }
+    }
+    function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+    (async function () {
+      var root = document.getElementById('post-root');
+      var slug = new URLSearchParams(location.search).get('slug');
+      if (!slug || !/^[a-z0-9\-_]+$/i.test(slug)) {
+        root.innerHTML = '<p class="text-lg">Post not found. <a class="text-navy dark:text-indigo-400 font-semibold hover:underline" href="index.html">Back to Guides →</a></p>';
+        return;
+      }
+      try {
+        var res = await fetch('/content/blog/' + slug + '.md', { cache: 'no-store' });
+        if (!res.ok) throw new Error('not found');
+        var raw = await res.text();
+        var parsed = parseFrontmatter(raw);
+        var d = parsed.data;
+        var bodyHtml = marked.parse(parsed.body || '');
+
+        document.title = (d.title || 'Article') + ' — CreatorsKit';
+
+        var cover = d.coverImage
+          ? '<div class="mx-auto max-w-4xl mt-8"><img src="' + esc(d.coverImage) + '" alt="' + esc(d.title) + '" class="w-full h-auto rounded-2xl border border-slate-200 dark:border-zinc-800" /></div>'
+          : '';
+
+        var tags = Array.isArray(d.tags) && d.tags.length
+          ? '<div class="not-prose mt-10 flex flex-wrap gap-2">' + d.tags.map(function (t) {
+              return '<span class="inline-flex items-center rounded-full bg-sky-100 dark:bg-sky-500/15 px-3 py-1 text-xs font-medium text-sky-800 dark:text-sky-300">' + esc(t) + '</span>';
+            }).join('') + '</div>'
+          : '';
+
+        root.className = 'pb-16';
+        root.innerHTML =
+          '<header class="mx-auto max-w-3xl px-5 sm:px-8 pt-12 sm:pt-16 pb-4 text-center">' +
+            '<span class="inline-flex items-center rounded-full bg-sky-100 dark:bg-sky-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sky-800 dark:text-sky-300">' + esc(d.category || 'Guides') + '</span>' +
+            '<h1 class="headline mt-5 text-3xl sm:text-4xl md:text-[2.9rem] font-black leading-[1.08] text-slate-900 dark:text-zinc-50 break-words">' + esc(d.title || '') + '</h1>' +
+            '<div class="mt-6 flex items-center justify-center gap-3 text-sm text-slate-500 dark:text-zinc-400">' +
+              '<span class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-navy to-indigo-400 text-[11px] font-black text-white">CK</span>' +
+              '<span>By <span class="font-semibold text-slate-700 dark:text-zinc-200">CreatorsKit Team</span> · ' + esc(fmtDate(d.date)) + ' · ' + esc(d.readTime || '') + '</span>' +
+            '</div>' +
+          '</header>' +
+          cover +
+          '<article class="mx-auto max-w-3xl px-5 sm:px-8 py-10">' +
+            '<div class="prose prose-slate dark:prose-invert max-w-3xl mx-auto prose-headings:font-black prose-headings:tracking-tight prose-a:text-navy dark:prose-a:text-indigo-400 prose-a:font-semibold prose-strong:text-slate-900 dark:prose-strong:text-zinc-100">' +
+              bodyHtml +
+              tags +
+            '</div>' +
+          '</article>';
+      } catch (e) {
+        root.innerHTML = '<p class="text-lg">We couldn\'t load this article. <a class="text-navy dark:text-indigo-400 font-semibold hover:underline" href="index.html">Back to Guides →</a></p>';
+      }
+    })();
+  </script>
+</body>
+</html>
