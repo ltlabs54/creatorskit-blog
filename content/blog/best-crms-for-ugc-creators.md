@@ -1,7 +1,7 @@
 ---
 title: "How to Land Your First Brand Collaboration: The Step-by-Step Creator Playbook"
 category: Monetization
-date: 2026-07-01T09:00:00.000Z
+date: 2026-07-21T11:12:00.000+03:00
 readTime: 6 min read
 coverImage: /images/uploads/dakota-lim-fcf6v2mn57m-unsplash.jpg
 tags:
