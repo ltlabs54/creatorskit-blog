@@ -1,7 +1,7 @@
 ---
 title: "The Weekend Creator Protocol: 5 Steps to Land Brand Gigs Before Monday"
 category: Guides
-date: 2026-07-31T13:05:00.000+03:00
+date: 2026-07-29T13:05:00.000+03:00
 readTime: 5 min read
 coverImage: /images/uploads/bruce-mars-fwvmhua_wby-unsplash.jpg
 tags:
